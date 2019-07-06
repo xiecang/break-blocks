@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>game</title>
+    <!-- 给 canvas 加以个边框 -->
+    <style media="screen">
+        canvas {
+            border: 1px black solid;
+        }
+    </style>
+
+</head>
+<body>
+<canvas id="id-canvas" width="400" height="300"></canvas>
+
+<script>
+    var log = console.log.bind(console)
+
+    // 拿到 canvas
+    var canvas = document.querySelector('#id-canvas')
+    // 在 canvas 上指定 2d 图
+    var context = canvas.getContext('2d')
+
+    // 挡板速度
+    var speed = 5
+    // 载入图片
+    var x = 150
+    var y = 100
+    var img = new Image()
+    img.src = 'paddle.png'
+    // log(img)
+    // 加载图片完成后，要使用 onload 执行想要的操作,使用火狐开发者版本不用
+    // 这样，直接使用 context.drawImage(img, 0, 0), 这个函数也可以不是用，如果图片加载不成功，在加上
+    img.onload = function() {
+        context.drawImage(img, x, y)
+    }
+
+    // 按键事件的状态
+    var leftDown = false
+    var rightDown = false
+    // events 按键事件
+    window.addEventListener('keydown', function (event) {
+        log('keydown')
+        var k = event.key
+        if (k === 'a') {
+            log('left')
+            x -= 10
+            // 清除 画布
+            context.clearRect(0, 0, canvas.width, canvas.height)
+            // 重画 图片
+            context.drawImage(img, x, y)
+            leftDown = true
+        } else if (k === 'd') {
+            log('right')
+            x += 10
+            context.clearRect(0, 0, canvas.width, canvas.height)
+            context.drawImage(img, x, y)
+            rightDown = true
+        }
+    })
+
+    window.addEventListener('keyup', function (event) {
+        log('keyup')
+        var k = event.key
+        if (k === 'a') {
+            leftDown = false
+        } else if (k === 'd') {
+            rightDown = false
+        }
+    })
+
+    // 定时器 timer
+    setInterval(function () {
+        if (leftDown === true) {
+            x -= speed
+            log('按下', x, speed)
+        } else if (rightDown === true) {
+            x += speed
+            log('按下', x, speed)
+        }
+        // 清除 画布
+        context.clearRect(0, 0, canvas.width, canvas.height)
+        // 重画 图片
+        log(x, speed)
+        log(rightDown, leftDown)
+        context.drawImage(img, x, y)
+    }, 1000/30)
+
+    var __main = function () {
+
+    }
+
+    __main()
+</script>
+</body>
+</html>
