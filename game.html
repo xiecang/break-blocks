@@ -219,8 +219,23 @@
             ball.fire()
         })
 
+        // 注册暂停事件
+        var paused = false
+        window.addEventListener('keydown', function(event){
+            if (event.key === 'p') {
+                log('按下了暂停')
+                paused = !paused
+            }
+        })
+
+
         // 直接覆盖 update 函数
         game.update = function() {
+            // 按了暂停
+            if (paused) {
+                return
+            }
+
             // 球运动
             ball.move()
             // 球和挡板碰撞
