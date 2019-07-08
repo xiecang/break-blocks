@@ -20,8 +20,8 @@ var enableDebugMode = function (game, enable) {
     window.addEventListener('keydown', function (event) {
         var k = event.key
         if (k === 'p') {
-            // log('按下了暂停')
-            paused = !paused
+            log('按下了暂停')
+            window.paused = !paused
         } else if ('1234567'.includes(k)) {
             // 载入关卡功能
             blocks = loadLevel(game, Number(k))
@@ -43,11 +43,13 @@ var __main = function () {
         ball: 'ball.png',
         block: 'block.png',
     }
-    // 初始化分数
-    var score = 0
     // GuaGame 载入,并初始化 fps
     var game = GuaGame(30, images, function (game) {
-        log('GuaGame callback', game)
+        // 初始化分数
+        var score = 0
+        // debug 模式开启
+        enableDebugMode(game, true)
+
         // paddle 载入
         var paddle = Paddle(game)
         // ball 载入
@@ -66,7 +68,7 @@ var __main = function () {
             ball.fire()
         })
         // 注册暂停事件
-        var paused = false
+        // var paused = false
         // // debug 模式开启
         // enableDebugMode(true)
         // 直接覆盖 update 函数
@@ -115,10 +117,6 @@ var __main = function () {
             // draw labels
             game.context.fillText('分数: ' + score, 10, 290)
         }
-
     })
-
-    // debug 模式开启
-    enableDebugMode(game, true)
 }
 __main()
