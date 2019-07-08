@@ -34,25 +34,33 @@ var GuaGame = function (fps) {
     }
 
     // timer
-    setInterval(function () {
+    window.fps = 30
+    var runloop = function (fps) {
         // events
-        var actions = Object.keys(g.actions)
-
+        var actions = Object.keys(g.actions)  // 获取到所有的 actions
         for (var i = 0; i < actions.length; i++) {
-            var key  = actions[i]
-            if(g.keydowns[key]) {
+            var key = actions[i]
+            if (g.keydowns[key]) {
                 // 如果按键按下，调用注册的 action 的 callback
                 g.actions[key]()
             }
         }
-
         // update 更新
         g.update()
         // clear 清除画板
         context.clearRect(0, 0, canvas.width, canvas.height)
-        // draw 画图
+        // drew 画图
         g.draw()
-    }, 1000/fps)
+        // next run loop
+        setTimeout(function () {
+            runloop()
+        }, 1000 / fps)
+    }
+
+    setTimeout(function () {
+        runloop()
+    }, 1000 / fps)
+
     return g
 }
 
