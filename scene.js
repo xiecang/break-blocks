@@ -44,11 +44,15 @@ var Scene = function (game) {
         game.context.fillText('分数: ' + score, 10, 290)
     }
     s.update = function () {
+        // 暂停功能
+        if (window.paused) {
+            return
+        }
         // 球运动
         ball.move()
         // ball 和 paddle 碰撞
         if (paddle.collide(ball)) {
-            // ball 的反弹函数
+            // todo, ball 的反弹函数
             ball.fjtj()
         }
         // ball 和 blocks 相撞了
