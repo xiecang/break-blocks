@@ -18,6 +18,8 @@
 </head>
 <body>
 <canvas id="id-canvas" width="400" height="300"></canvas>
+<hr>
+<input id=id-input-speed type='range' value='1'>
 
 <script>
     var loadLevel = function (n) {
@@ -50,6 +52,12 @@
             }
         })
     }
+    // 使用滑条控制速度， input 可以动态监控值
+    document.querySelector('#id-input-speed').addEventListener('input', function () {
+        var input = event.target
+        // log(event, input.value)
+        window.fps = Number(input.value)
+    })
 
     var __main = function () {
         // debug 模式开启
