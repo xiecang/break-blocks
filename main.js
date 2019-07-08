@@ -44,6 +44,7 @@ var __main = function () {
         block: 'block.png',
     }
     // GuaGame 载入,并初始化 fps
+    // 这里有个回调的问题需要加上function, 并将操作放在其中
     var game = GuaGame(30, images, function (game) {
         // 初始化分数
         var score = 0
@@ -99,6 +100,10 @@ var __main = function () {
             }
         }
         game.draw = function () {
+            // 添加背景
+            game.context.fillStyle = '#555'
+            game.context.fillRect(0, 0, 400, 300)
+
             // 调用 GuaGame 的 drawImage 来draw 画图
             game.drawImage(paddle)
             game.drawImage(ball)
@@ -117,6 +122,34 @@ var __main = function () {
             // draw labels
             game.context.fillText('分数: ' + score, 10, 290)
         }
+
+        // mouse event 点击拖动,这里要有三个事件，点击事件，拖动事件，松开事件
+        var enableDrag = false
+        game.canvas.addEventListener('mousedown', function (event) {
+            var x = event.offsetX
+            var y = event.offsetY
+            log(x, y, 'down')
+            // 检查是否点中了 ball
+            if (ball.hasPoint(x, y)) {
+                // 设置拖拽状态
+                enableDrag = true
+            }
+        })
+        game.canvas.addEventListener('mousemove', function (event) {
+            var x = event.offsetX
+            var y = event.offsetY
+            log(x, y, 'move')
+            if (enableDrag) {
+                ball.x = x
+                ball.y = y
+            }
+        })
+        game.canvas.addEventListener('mouseup', function (event) {
+            var x = event.offsetX
+            var y = event.offsetY
+            log(x, y, 'up')
+            enableDrag = false
+        })
     })
 }
 __main()

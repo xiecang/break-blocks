@@ -55,7 +55,7 @@ var GuaGame = function (fps, images, runCallback) {
         g.update()
         // clear 清除画板
         context.clearRect(0, 0, canvas.width, canvas.height)
-        // drew 画图
+        // draw 画图
         g.draw()
         // next run loop
         // 递归调用

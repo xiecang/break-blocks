@@ -1,8 +1,6 @@
 var Block = function (game, position) {
     // position 是 [0, 0] 格式
     var p = position
-
-    // var image = imageFromPath('block.png')
     var img = game.imageByName('block')
     var o = {
         x: p[0],

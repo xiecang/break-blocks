@@ -9,6 +9,7 @@ var Ball = function (game) {
     //     fired: false, // 发射状态
     // }
     var o = game.imageByName('ball')
+
     o.x = 100
     o.y = 200
     o.speedX = 5
@@ -22,7 +23,6 @@ var Ball = function (game) {
     o.move = function() {
         // 发射状态
         if (o.fired) {
-            // log('fifff')
             // 撞到墙了，球要反弹，球宽高都是8
             if (o.x < 0 || o.x + 8> 400) {
                 o.speedX = -o.speedX
@@ -39,6 +39,12 @@ var Ball = function (game) {
     o.fjtj = function() {
         // log('反弹了')
         o.speedY *= -1
+    }
+    // 判断一个点是否在矩形内
+    o.hasPoint = function (x, y) {
+        var xIn = x >= o.x && x <= o.x + o.w
+        var yIn = y >= o.y && y <= o.y + o.h
+        return xIn && yIn
     }
     return o
 }
