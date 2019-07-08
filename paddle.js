@@ -1,12 +1,16 @@
 // 一个 Paddle 对象
-var Paddle = function () {
-    var image = imageFromPath('paddle.png')
-    var o = {
-        image: image,
-        x: 100,
-        y: 250,
-        speed: 5,
-    }
+var Paddle = function (game) {
+    // var image = imageFromPath('paddle.png')
+    // var o = {
+    //     image: image,
+    //     x: 100,
+    //     y: 250,
+    //     speed: 5,
+    // }
+    var o = game.imageByName('paddle')
+    o.x = 100
+    o.y = 250
+    o.speed = 15
 
     // paddle 移动逻辑
     o.moveLeft = function() {
