@@ -51,23 +51,25 @@ var Paddle = function (game) {
         // }
         // return false
 
-        // 中点座标
-        var aX = a.x + a.w / 2
-        var aY = a.y + a.h / 2
-        var bX = b.x + b.w / 2
-        var bY = b.y + b.h / 2
-        // log('paddle', a.x, a.y,)
-        log('ball', b.x, b.y)
-        // log(aX - bX, aY - bY)
-        // log(a.w + b.w, a.h + b.h)
-        // log(Math.abs(aX - bX) )
-        // log(Math.abs(aY - bY) )
-        // log('aaaa', aY, bY)
-        if (Math.abs(aX - bX) <= (a.w + b.w) / 2 && Math.abs(aY - bY) <= (a.h + b.h) / 2) {
-            log('球和挡板相撞了')
-            return true
-        }
-        return false
+        // // 中点座标
+        // var aX = a.x + a.w / 2
+        // var aY = a.y + a.h / 2
+        // var bX = b.x + b.w / 2
+        // var bY = b.y + b.h / 2
+        // // log('paddle', a.x, a.y,)
+        // log('ball', b.x, b.y)
+        // // log(aX - bX, aY - bY)
+        // // log(a.w + b.w, a.h + b.h)
+        // // log(Math.abs(aX - bX) )
+        // // log(Math.abs(aY - bY) )
+        // // log('aaaa', aY, bY)
+        // if (Math.abs(aX - bX) <= (a.w + b.w) / 2 && Math.abs(aY - bY) <= (a.h + b.h) / 2) {
+        //     log('球和挡板相撞了')
+        //     return true
+        // }
+        // return false
+
+        return rectIntersects(a, b)
     }
     return o
 
