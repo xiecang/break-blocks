@@ -46,110 +46,21 @@ var __main = function () {
     // GuaGame 载入,并初始化 fps
     // 这里有个回调的问题需要加上function, 并将操作放在其中
     var game = GuaGame(30, images, function (game) {
-        // 初始化分数
-        var score = 0
-        // debug 模式开启
-        enableDebugMode(game, true)
-
-        // paddle 载入
-        var paddle = Paddle(game)
-        // ball 载入
-        var ball = Ball(game)
-        // block 载入
-        blocks = loadLevel(game, 1)
-
-        // events 按键事件
-        game.registerAction('a', function () {
-            paddle.moveLeft()
-        })
-        game.registerAction('d', function () {
-            paddle.moveRight()
-        })
-        game.registerAction('f', function () {
-            ball.fire()
-        })
-        // 注册暂停事件
-        // var paused = false
-        // // debug 模式开启
-        // enableDebugMode(true)
-        // 直接覆盖 update 函数
+        // 使用 scene 抽象了 update, draw
+        var scene = Scene(game)
         game.update = function () {
             // 按了暂停
-            if (paused) {
+            if (window.paused) {
                 return
             }
-            // 球运动
-            ball.move()
-            // ball 和 paddle 碰撞
-            if (paddle.collide(ball)) {
-                // ball 的反弹函数
-                ball.fjtj()
-            }
-            // ball 和 blocks 相撞了
-            for (var i = 0; i < blocks.length; i++) {
-                var block = blocks[i]
-                if (block.collide(ball)) {
-                    log('球和砖块相撞了')
-                    // 相撞了砖块 alive = false
-                    block.kill()
-                    // 反弹函数
-                    ball.fjtj()
-                    // 更新分数
-                    score += 100
-                }
-            }
+            scene.update()
         }
         game.draw = function () {
-            // 添加背景
-            game.context.fillStyle = '#555'
-            game.context.fillRect(0, 0, 400, 300)
-
-            // 调用 GuaGame 的 drawImage 来draw 画图
-            game.drawImage(paddle)
-            game.drawImage(ball)
-            // draw block
-            // if (block.alive) {
-            //     game.drawImage(block)
-            // }
-
-            // draw blocks
-            for (var i = 0; i < blocks.length; i++) {
-                var block = blocks[i]
-                if (block.alive) {
-                    game.drawImage(block)
-                }
-            }
-            // draw labels
-            game.context.fillText('分数: ' + score, 10, 290)
+            scene.draw()
         }
-
-        // mouse event 点击拖动,这里要有三个事件，点击事件，拖动事件，松开事件
-        var enableDrag = false
-        game.canvas.addEventListener('mousedown', function (event) {
-            var x = event.offsetX
-            var y = event.offsetY
-            log(x, y, 'down')
-            // 检查是否点中了 ball
-            if (ball.hasPoint(x, y)) {
-                // 设置拖拽状态
-                enableDrag = true
-            }
-        })
-        game.canvas.addEventListener('mousemove', function (event) {
-            var x = event.offsetX
-            var y = event.offsetY
-            log(x, y, 'move')
-            if (enableDrag) {
-                ball.x = x
-                ball.y = y
-            }
-        })
-        game.canvas.addEventListener('mouseup', function (event) {
-            var x = event.offsetX
-            var y = event.offsetY
-            log(x, y, 'up')
-            enableDrag = false
-        })
+        // debug 模式开启,放在外边也可用
+        // enableDebugMode(game, true)
     })
+    enableDebugMode(game, true)
 }
 __main()
