@@ -1,8 +1,7 @@
-// 一个 guagame 对象， 用来加载画布
+// 一个 guagame 对象，用来加载画布
 var GuaGame = function (fps, images, runCallback) {
     // images 是一个对象，里边是图片的名字
     // 程序会在所有图片载入成功后运行
-
     var g = {
         // 储存 key 和 function
         actions: {},
@@ -63,7 +62,6 @@ var GuaGame = function (fps, images, runCallback) {
             runloop()
         }, 1000 / window.fps)
     }
-
     var loads = []
     // 预先载入所有图片
     var names = Object.keys(images)
@@ -102,6 +100,10 @@ var GuaGame = function (fps, images, runCallback) {
         }, 1000 / fps)
     }
 
+    g.replaceScene = function (scene) {
+        g.scene = scene
+    }
+
     g.__start = function () {
         // 第一次运行需要加上 runCallback
         runCallback(g)
@@ -112,4 +114,3 @@ var GuaGame = function (fps, images, runCallback) {
         return g
     }
 }
-
