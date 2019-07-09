@@ -35,9 +35,9 @@ var enableDebugMode = function (game, enable) {
 }
 var __main = function () {
     var images = {
-        paddle: 'paddle.png',
-        ball: 'ball.png',
-        block: 'block.png',
+        paddle: 'img/paddle.png',
+        ball: 'img/ball.png',
+        block: 'img/block.png',
     }
     // GuaGame 载入,并初始化 fps, images
     // 这里有个回调的问题需要加上function, 并将操作放在其中
