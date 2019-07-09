@@ -41,21 +41,7 @@ var __main = function () {
     }
     // GuaGame 载入,并初始化 fps, images
     // 这里有个回调的问题需要加上function, 并将操作放在其中
-    var game = new GuaGame(30, images, function (game) {
-        // 使用 scene 抽象了 update, draw
-        // var scene = Scene(game)
-        // game.update = function () {
-        //     // 按了暂停
-        //     if (window.paused) {
-        //         return
-        //     }
-        //     scene.update()
-        // }
-        // game.draw = function () {
-        //     scene.draw()
-        // }
-        // debug 模式开启,放在外边也可用
-        // enableDebugMode(game, true)
+    var game = GuaGame.instance(30, images, function (game) {
         var s = SceneTitle.new(game)
         g.runWithScene(s)
     })
