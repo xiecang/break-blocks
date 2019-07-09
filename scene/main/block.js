@@ -1,8 +1,8 @@
-var Block = function (game, position) {
+let Block = function (game, position) {
     // position 是 [0, 0] 格式
-    var p = position
-    var img = game.imageByName('block')
-    var o = {
+    let p = position
+    let img = game.imageByName('block')
+    let o = {
         x: p[0],
         y: p[1],
         alive: true, // 砖块是否显示，默认是显示的
@@ -20,7 +20,7 @@ var Block = function (game, position) {
     }
     // 检测砖块和球是否已经碰撞了
     o.collide = function (ball) {
-        var b = ball
+        let b = ball
         // 判断相撞，要有两次 o in b， b in o，并且砖块 alive = true
         return o.alive && (rectIntersects(o, b) || rectIntersects(b, o))
     }

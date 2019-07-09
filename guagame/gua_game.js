@@ -11,6 +11,7 @@ class GuaGame {
         this.actions = {}
         // 储存按键的状态
         this.keydowns = {}
+        this.blocks = null
         this.canvas = document.querySelector('#id-canvas')
         this.context = this.canvas.getContext('2d')
         // events
@@ -49,23 +50,23 @@ class GuaGame {
     }
 
     runloop() {
-        log(window.fps)
-        var g = this
+        // log(window.fps)
+        let g = this
         // events
-        var actions = Object.keys(g.actions)  // 获取到所有的 actions
-        for (var i = 0; i < actions.length; i++) {
-            var key = actions[i]
+        let actions = Object.keys(g.actions)  // 获取到所有的 actions
+        for (let i = 0; i < actions.length; i++) {
+            let key = actions[i]
             if (g.keydowns[key]) {
                 // 如果按键按下，调用注册的 action 的 callback
                 g.actions[key]()
             }
         }
         // update 更新
-        g.scene.update()
+        g.update()
         // clear 清除画板
         g.context.clearRect(0, 0, g.canvas.width, g.canvas.height)
         // draw 画图
-        g.scene.draw()
+        g.draw()
         // next run loop
         // 递归调用
         setTimeout(function () {
@@ -74,9 +75,9 @@ class GuaGame {
     }
 
     imageByName(name) {
-        var g = this
-        var img = g.images[name]
-        var image = {
+        let g = this
+        let img = g.images[name]
+        let image = {
             w: img.width,
             h: img.height,
             image: img,
@@ -85,7 +86,7 @@ class GuaGame {
     }
 
     runWithScene(scene) {
-        var g = this
+        let g = this
         g.scene = scene
         // 开始运行程序
         setTimeout(function () {
@@ -108,13 +109,13 @@ class GuaGame {
     }
 
     init() {
-        var g = this
-        var loads = []
+        let g = this
+        let loads = []
         // 预先载入所有图片
-        var names = Object.keys(g.images)
-        for (var i = 0; i < names.length; i++) {
+        let names = Object.keys(g.images)
+        for (let i = 0; i < names.length; i++) {
             let name = names[i]
-            var path = g.images[name]
+            let path = g.images[name]
             let img = new Image()
             img.src = path
             img.onload = function () {

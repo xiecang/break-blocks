@@ -1,14 +1,5 @@
-var Ball = function (game) {
-    // var image = imageFromPath('ball.png')
-    // var o = {
-    //     image: image,
-    //     x: 100,
-    //     y: 200,
-    //     speedX: 5, // 球有两个速度
-    //     speedY: 5,
-    //     fired: false, // 发射状态
-    // }
-    var o = game.imageByName('ball')
+let Ball = function (game) {
+    let o = game.imageByName('ball')
 
     o.x = 100
     o.y = 200
@@ -42,8 +33,8 @@ var Ball = function (game) {
     }
     // 判断一个点是否在矩形内(点击的点)
     o.hasPoint = function (x, y) {
-        var xIn = x >= o.x && x <= o.x + o.w
-        var yIn = y >= o.y && y <= o.y + o.h
+        let xIn = x >= o.x && x <= o.x + o.w
+        let yIn = y >= o.y && y <= o.y + o.h
         return xIn && yIn
     }
     return o

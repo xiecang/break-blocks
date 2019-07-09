@@ -1,5 +1,5 @@
 // 一个 Paddle 对象
-var Paddle = function (game) {
+let Paddle = function (game) {
     // var image = imageFromPath('paddle.png')
     // var o = {
     //     image: image,
@@ -7,7 +7,7 @@ var Paddle = function (game) {
     //     y: 250,
     //     speed: 5,
     // }
-    var o = game.imageByName('paddle')
+    let o = game.imageByName('paddle')
     o.x = 100
     o.y = 250
     o.speed = 15
@@ -28,7 +28,7 @@ var Paddle = function (game) {
         o.move(o.x + o.speed)
     }
     // paddle 和 ball 的碰撞,碰撞了返回 true
-    var aInb = function (x, x1, x2) {
+    let aInb = function (x, x1, x2) {
         return x >= x1 && x <= x2
     }
     o.collide = function (ball) {
@@ -39,8 +39,8 @@ var Paddle = function (game) {
         //     }
         // }
         // return false
-        var a = o
-        var b = ball
+        let a = o
+        let b = ball
         // if (aInb(a.x, b.x, b.x + b.w) || aInb(b.x, a.x, a.x + a.w)) {
         //     if (aInb(a.y, b.y, b.y + b.h) || aInb(b.y, a.y, a.y + a.h)) {
         //         return true

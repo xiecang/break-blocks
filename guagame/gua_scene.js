@@ -5,7 +5,7 @@ class GuaScene {
 
     // 将子类中的共同方法提取到父类中
     static new(game) {
-        var i = new this(game)
+        let i = new this(game)
         return i
     }
 

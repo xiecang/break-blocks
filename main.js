@@ -23,7 +23,7 @@ var enableDebugMode = function (game, enable) {
             window.paused = !window.paused
         } else if ('1234567'.includes(k)) {
             // 载入关卡功能
-            blocks = loadLevel(game, Number(k))
+            game.blocks = loadLevel(game, Number(k))
         }
     })
     // 使用滑条控制速度， input 可以动态监控值
@@ -41,7 +41,7 @@ var __main = function () {
     }
     // GuaGame 载入,并初始化 fps, images
     // 这里有个回调的问题需要加上function, 并将操作放在其中
-    var game = GuaGame.instance(30, images, function (game) {
+    var game = GuaGame.instance(30, images, function (g) {
         var s = SceneTitle.new(game)
         g.runWithScene(s)
     })
