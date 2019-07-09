@@ -56,7 +56,7 @@ var __main = function () {
         // }
         // debug 模式开启,放在外边也可用
         // enableDebugMode(game, true)
-        var s = SceneTitle(g)
+        var s = new SceneTitle(game)
         g.runWithScene(s)
     })
     enableDebugMode(game, true)
