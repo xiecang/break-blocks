@@ -16,18 +16,18 @@ var Ball = function (game) {
     o.speedY = 5
     o.fired = false
     // 发射改变 fired 状态
-    o.fire = function() {
+    o.fire = function () {
         o.fired = true
     }
     // ball 的移动逻辑
-    o.move = function() {
+    o.move = function () {
         // 发射状态
         if (o.fired) {
             // 撞到墙了，球要反弹，球宽高都是8
-            if (o.x < 0 || o.x + 8> 400) {
+            if (o.x < 0 || o.x + 8 > 400) {
                 o.speedX = -o.speedX
             }
-            if (o.y < 0 || o.y + 8> 300) {
+            if (o.y < 0 || o.y + 8 > 300) {
                 o.speedY = -o.speedY
             }
             // 球运动
@@ -36,7 +36,7 @@ var Ball = function (game) {
         }
     }
     // ball 的反弹函数
-    o.fjtj = function() {
+    o.fjtj = function () {
         // log('反弹了')
         o.speedY *= -1
     }

@@ -19,20 +19,20 @@ var GuaGame = function (fps, images, runCallback) {
     g.context = context
 
     // draw
-    g.drawImage = function(guaImage) {
+    g.drawImage = function (guaImage) {
         g.context.drawImage(guaImage.image, guaImage.x, guaImage.y)
     }
 
     // event 按键状态,在 keydowns 储存
-    window.addEventListener('keydown', function(event) {
+    window.addEventListener('keydown', function (event) {
         g.keydowns[event.key] = true
     })
-    window.addEventListener('keyup', function(event) {
+    window.addEventListener('keyup', function (event) {
         g.keydowns[event.key] = false
     })
 
     // 注册事件，按了那个 key 要执行什么函数, 在 setInterval 中调用
-    g.registerAction = function(key, callback) {
+    g.registerAction = function (key, callback) {
         log('register', key)
         g.actions[key] = callback
     }
@@ -65,7 +65,7 @@ var GuaGame = function (fps, images, runCallback) {
     var loads = []
     // 预先载入所有图片
     var names = Object.keys(images)
-    for (let i = 0; i < names.length; i++) {
+    for (var i = 0; i < names.length; i++) {
         let name = names[i]
         var path = images[name]
         let img = new Image()
@@ -76,7 +76,7 @@ var GuaGame = function (fps, images, runCallback) {
             // 所有图片载入后执行，调用 run
             loads.push(1)
             // log('载入图片', loads.length, names.length)
-            if (loads.length === names.length) {
+            if (loads.length == names.length) {
                 // g.run()
                 g.__start()
             }
@@ -91,7 +91,6 @@ var GuaGame = function (fps, images, runCallback) {
         }
         return image
     }
-
     g.runWithScene = function (scene) {
         g.scene = scene
         // 开始运行程序
@@ -99,11 +98,9 @@ var GuaGame = function (fps, images, runCallback) {
             runloop()
         }, 1000 / fps)
     }
-
     g.replaceScene = function (scene) {
         g.scene = scene
     }
-
     g.__start = function () {
         // 第一次运行需要加上 runCallback
         runCallback(g)
@@ -111,6 +108,7 @@ var GuaGame = function (fps, images, runCallback) {
         // setTimeout(function () {
         //     runloop()
         // }, 1000 / fps)
-        return g
+        // return g
     }
+    return g
 }

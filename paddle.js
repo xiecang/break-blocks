@@ -11,7 +11,6 @@ var Paddle = function (game) {
     o.x = 100
     o.y = 250
     o.speed = 15
-
     // paddle 移动逻辑
     o.move = function (x) {
         if (x < 0) {
@@ -22,19 +21,17 @@ var Paddle = function (game) {
         }
         o.x = x
     }
-    o.moveLeft = function() {
+    o.moveLeft = function () {
         o.move(o.x - o.speed)
     }
-    o.moveRight = function() {
+    o.moveRight = function () {
         o.move(o.x + o.speed)
     }
-
     // paddle 和 ball 的碰撞,碰撞了返回 true
     var aInb = function (x, x1, x2) {
         return x >= x1 && x <= x2
     }
-
-    o.collide = function(ball) {
+    o.collide = function (ball) {
         // if (ball.y + ball.image.height > o.y) {
         //     if (ball.x > o.x && ball.x < o.x + o.image.width) {
         //         log('球和挡板相撞了')
@@ -68,9 +65,7 @@ var Paddle = function (game) {
         //     return true
         // }
         // return false
-
         return rectIntersects(a, b)
     }
     return o
-
 }

@@ -2,7 +2,7 @@ var loadLevel = function (game, n) {
     n = n - 1
     var level = levels[n]
     var blocks = []
-    for (let i = 0; i < level.length; i++) {
+    for (var i = 0; i < level.length; i++) {
         var p = level[i]
         var b = Block(game, p)
         blocks.push(b)

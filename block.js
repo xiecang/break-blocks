@@ -12,12 +12,11 @@ var Block = function (game, position) {
     o.w = img.w
     o.h = img.h
     // 砖块碰撞，不在显示
-    o.kill = function() {
+    o.kill = function () {
         o.lifes--
         if (o.lifes < 1) {
             o.alive = false
         }
-
     }
     // 检测砖块和球是否已经碰撞了
     o.collide = function (ball) {
