@@ -23,7 +23,9 @@ var enableDebugMode = function (game, enable) {
             window.paused = !window.paused
         } else if ('1234567'.includes(k)) {
             // 载入关卡功能
-            game.blocks = loadLevel(game, Number(k))
+            game.scene.blocks = loadLevel(game, Number(k))
+        } else if (k === 'e') {
+            game.scene.enableEditLevel = !game.scene.enableEditLevel
         }
     })
     // 使用滑条控制速度， input 可以动态监控值

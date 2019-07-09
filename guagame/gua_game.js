@@ -11,7 +11,6 @@ class GuaGame {
         this.actions = {}
         // 储存按键的状态
         this.keydowns = {}
-        this.blocks = null
         this.canvas = document.querySelector('#id-canvas')
         this.context = this.canvas.getContext('2d')
         // events

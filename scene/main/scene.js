@@ -10,9 +10,9 @@ let Scene = function (game) {
     // ball 载入
     let ball = Ball(game)
     // block 载入
-    game.blocks = game.blocks || loadLevel(game, 1)
+    s.blocks = s.blocks || loadLevel(game, 1)
     // 编辑关卡
-    let enableEditLevel = false
+    s.enableEditLevel = false
 
     // events 按键事件
     game.registerAction('a', function () {
@@ -23,9 +23,6 @@ let Scene = function (game) {
     })
     game.registerAction('f', function () {
         ball.fire()
-    })
-    game.registerAction('e', function () {
-        enableEditLevel = !enableEditLevel
     })
     s.draw = function () {
         // 添加背景
@@ -40,8 +37,8 @@ let Scene = function (game) {
         // }
 
         // draw blocks
-        for (let i = 0; i < game.blocks.length; i++) {
-            let block = game.blocks[i]
+        for (let i = 0; i < s.blocks.length; i++) {
+            let block = s.blocks[i]
             if (block.alive) {
                 game.drawImage(block)
             }
@@ -68,8 +65,8 @@ let Scene = function (game) {
             ball.fjtj()
         }
         // ball 和 blocks 相撞了
-        for (let i = 0; i < game.blocks.length; i++) {
-            let block = game.blocks[i]
+        for (let i = 0; i < s.blocks.length; i++) {
+            let block = s.blocks[i]
             if (block.collide(ball)) {
                 log('球和砖块相撞了')
                 // 相撞了砖块 alive = false
@@ -90,12 +87,12 @@ let Scene = function (game) {
                 // 设置拖拽状态
                 enableDrag = true
             } else {
-                if (!enableDrag) {
+                if (!s.enableEditLevel) {
                     return
                 }
                 // 添加砖块
                 let b = Block(game, [x, y, (Math.random() * (3 - 3) + 1)])
-                game.blocks.push(b)
+                s.blocks.push(b)
             }
         })
         game.canvas.addEventListener('mousemove', function (event) {
