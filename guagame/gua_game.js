@@ -15,7 +15,7 @@ class GuaGame {
         this.context = this.canvas.getContext('2d')
         // events
         // 这里有一个 this 的陷阱，可以使用 self 和 箭头函数来避免
-        var self = this
+        let self = this
         window.addEventListener('keydown', event => {
             this.keydowns[event.key] = true
         })
