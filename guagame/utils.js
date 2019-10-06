@@ -1,4 +1,5 @@
 let e = sel => document.querySelector(sel)
+let es = sel => document.querySelectorAll(sel)
 
 let log = console.log.bind(console)
 

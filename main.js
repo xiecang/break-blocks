@@ -4,7 +4,7 @@ let loadLevel = function (game, n) {
     let blocks = []
     for (let i = 0; i < level.length; i++) {
         let p = level[i]
-        let b = Block(game, p)
+        let b = Block.new(game, p)
         blocks.push(b)
     }
     return blocks
@@ -37,9 +37,10 @@ let enableDebugMode = function (game, enable) {
 }
 let __main = function () {
     let images = {
+        bg: "img/background.jpg",
         paddle: 'img/paddle.png',
         ball: 'img/ball.png',
-        block: 'img/block.png',
+        block: 'img/block1.png',
     }
     // GuaGame 载入,并初始化 fps, images
     // 这里有个回调的问题需要加上function, 并将操作放在其中

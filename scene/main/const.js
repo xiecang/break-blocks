@@ -1,0 +1,4 @@
+PADDLE = "paddle"
+
+CANVAS_WIDTH = 600
+CANVAS_HEIGHT = 500

@@ -1,53 +1,75 @@
-let Scene = function (game) {
-    let s = {
-        game: game,
+class Scene extends GuaScene {
+    constructor(game) {
+        super(game)
+
+        this.setup()
+        this.setupInput()
 
     }
-    // 初始化
-    let score = 0
-    // paddle 载入
-    let paddle = Paddle(game)
-    // ball 载入
-    let ball = Ball(game)
-    // block 载入
-    s.blocks = s.blocks || loadLevel(game, 1)
-    // 编辑关卡
-    s.enableEditLevel = false
+    setup() {
+        let game = this.game
+        let s = this
 
-    // events 按键事件
-    game.registerAction('a', function () {
-        paddle.moveLeft()
-    })
-    game.registerAction('d', function () {
-        paddle.moveRight()
-    })
-    game.registerAction('f', function () {
-        ball.fire()
-    })
-    s.draw = function () {
-        // 添加背景
-        game.context.fillStyle = '#555'
-        game.context.fillRect(0, 0, 400, 300)
-        // 调用 GuaGame 的 drawImage 来 draw 画图
-        game.drawImage(paddle)
-        game.drawImage(ball)
-        // draw block
-        // if (block.alive) {
-        //     game.drawImage(block)
-        // }
+        // 初始化
+        this.score = 0
 
-        // draw blocks
-        for (let i = 0; i < s.blocks.length; i++) {
-            let block = s.blocks[i]
-            if (block.alive) {
-                game.drawImage(block)
-            }
-        }
+        this.bg = GuaImage.new(this.game, 'bg')
+        // paddle 载入
+        this.paddle = Paddle.new(game)
+        this.paddle.x = 100
+        this.paddle.y = 450
+
+        // ball 载入
+        this.ball = Ball.new(game)
+        this.ball.x = 100
+        this.ball.y = 200
+
+        this.addElement(this.bg)
+        this.addElement(this.paddle)
+        this.addElement(this.ball)
+
+        this.blocks = s.blocks || loadLevel(game, 1)
+        this.addBlocks()
+
+        // 编辑关卡
+        s.enableEditLevel = false
+
+
+    }
+    setupInput() {
+        let game = this.game
+        let paddle = this.paddle
+        let ball = this.ball
+
+        // events 按键事件
+        game.registerAction('a', function () {
+            paddle.moveLeft()
+        })
+        game.registerAction('d', function () {
+            paddle.moveRight()
+        })
+        game.registerAction('f', function () {
+            ball.fire()
+        })
+    }
+
+
+    draw() {
+        super.draw();
+        let game = this.game
+
         // draw labels
         game.context.fillStyle = "pink"
-        game.context.fillText('分数: ' + score, 10, 290)
+        game.context.fillText('分数: ' + this.score, 10, 490)
     }
-    s.update = function () {
+
+    update() {
+        super.update();
+        let game = this.game
+        let paddle = this.paddle
+        let ball = this.ball
+        let s = this.game.scene
+
         // 暂停功能
         if (window.paused) {
             return
@@ -56,8 +78,8 @@ let Scene = function (game) {
         ball.move()
         // 判断游戏结束，跳转到结束画面
         if (ball.y > paddle.y) {
-            let end = SceneEnd.new(game)
-            game.replaceScene(end)
+            // let end = SceneEnd.new(game)
+            // game.replaceScene(end)
         }
         // ball 和 paddle 碰撞
         if (paddle.collide(ball)) {
@@ -74,7 +96,7 @@ let Scene = function (game) {
                 // 反弹函数
                 ball.fjtj()
                 // 更新分数
-                score += 100
+                this.score += 100
             }
         }
         let enableDrag = false
@@ -111,5 +133,14 @@ let Scene = function (game) {
             enableDrag = false
         })
     }
-    return s
+
+    addBlocks() {
+        for (let i = 0; i < this.blocks.length; i++) {
+            let block = this.blocks[i]
+            if (block.alive) {
+                this.addElement(block)
+            }
+        }
+    }
+
 }

@@ -1,28 +1,28 @@
-let Block = function (game, position) {
-    // position 是 [0, 0] 格式
-    let p = position
-    let img = game.imageByName('block')
-    let o = {
-        x: p[0],
-        y: p[1],
-        alive: true, // 砖块是否显示，默认是显示的
-        lifes: p[2] || 1  // 如果 p[2] 存在，不存在就是 1
+class Block extends GuaImage {
+    constructor(game, position) {
+        super(game, 'block');
+        // position 是 [0, 0] 格式
+        let p = position
+        this.x = p[0]
+        this.y = p[1]
+        this.alive = true
+
+        this.lives = p[2] || 1  // 生命
     }
-    o.image = img.image
-    o.w = img.w
-    o.h = img.h
-    // 砖块碰撞，不在显示
-    o.kill = function () {
-        o.lifes--
-        if (o.lifes < 1) {
+
+    kill() {
+        let o = this
+        o.lives--
+        if (o.lives < 1) {
             o.alive = false
         }
+        this.scene.deleteElement(this)
     }
-    // 检测砖块和球是否已经碰撞了
-    o.collide = function (ball) {
+
+    collide = function (ball) {
         let b = ball
+        let o = this
         // 判断相撞，要有两次 o in b， b in o，并且砖块 alive = true
         return o.alive && (rectIntersects(o, b) || rectIntersects(b, o))
     }
-    return o
 }

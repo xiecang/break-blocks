@@ -1,10 +1,6 @@
 class SceneTitle extends GuaScene {
     constructor(game) {
         super(game)
-        game.registerAction('k', function () {
-            let s = Scene(game)
-            game.replaceScene(s)
-        })
 
         this.setup()
     }
@@ -39,6 +35,8 @@ class SceneTitle extends GuaScene {
 
                 if (self.startRect.hasPoint(x, y)) {
                     log('in startRect')
+                    let s = Scene.new(self.game)
+                    self.game.replaceScene(s)
                     self.enableSelect = false
                 } else if (self.editRect.hasPoint(x, y)) {
                     log('in editRect')

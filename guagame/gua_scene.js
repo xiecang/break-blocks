@@ -1,12 +1,25 @@
 class GuaScene {
     constructor(game) {
         this.game = game
+        this.debugModelEnable = true
+        this.elements = []
+
     }
 
     // 将子类中的共同方法提取到父类中
     static new(game) {
-        let i = new this(game)
-        return i
+        return new this(game)
+    }
+
+    addElement(img) {
+        img.scene = this
+        this.elements.push(img)
+    }
+
+    deleteElement(img) {
+        img.scene = this
+        let index = this.elements.indexOf(img)
+        this.elements.splice(index, 1)
     }
 
 
@@ -27,18 +40,24 @@ class GuaScene {
         context.fillText(text, x, y)
     }
 
-    drawRectWithLabel(x, y, w, h, text, fontSize, RectColor = "green", textColor = "black") {
-        this.drawRect(x, y, w, h, RectColor)
-        let x1 = x + 0.2 * x
-        let y1 = y + 0.5 * y
-        this.drawLabel(text, x1, y1, textColor, fontSize)
-    }
-
     draw() {
-
+        for (let i = 0; i < this.elements.length; i++) {
+            let e = this.elements[i]
+            e.draw()
+        }
     }
 
     update() {
+        if (this.debugModelEnable) {
+            for (let i = 0; i < this.elements.length; i++) {
+                const e = this.elements[i]
+                e.debug && e.debug()
+            }
+        }
 
+        for (let i = 0; i < this.elements.length; i++) {
+            let e = this.elements[i]
+            e.update()
+        }
     }
 }

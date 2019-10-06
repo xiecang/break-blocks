@@ -14,7 +14,9 @@
     <script src="guagame/gua_game.js"></script>
     <script src="guagame/gua_scene.js"></script>
     <script src="guagame/gua_rect.js"></script>
+    <script src="guagame/gua_image.js"></script>
     <!-- 场景相关文件 -->
+    <script src="scene/main/const.js"></script>
     <script src="scene/main/paddle.js"></script>
     <script src="scene/main/ball.js"></script>
     <script src="scene/main/block.js"></script>
@@ -25,11 +27,75 @@
     <!-- 关卡数据 -->
     <script src="level.js"></script>
 
+    <!-- config -->
+    <script src="config.js"></script>
+
 </head>
 <body>
 <canvas id="id-canvas" width="600" height="500"></canvas>
 <hr>
-<input id=id-input-speed type='range' value='1'>
+<input id=id-input-speed type='range' value='1'> 游戏帧率
+
+<div class="gua-controls"></div>
 <script src='main.js'></script>
+<script>
+    let bindAll = function(sel, eventName, callback) {
+        let l = es(sel)
+        for (let i = 0; i <l.length; i++) {
+            let input = l[i]
+            input.addEventListener(eventName, function(event) {
+                callback(event)
+            })
+        }
+    }
+
+    let templateControl = function(key, item) {
+        let t = `
+                    <div class="">
+                        <label>
+                            <input class="gua-auto-slider" type="range"
+                                max="${item.max}"
+                                min="${item.min}"
+                                value="${item.value}"
+                                data-value="config.${key}"
+                            >
+                         <span class="gua-label">${item._comment}</span>
+                        </label>
+                    </div>
+                `
+        return t
+    }
+
+    let insertControls = function() {
+        let div = e('.gua-controls')
+        log(div)
+        let keys = Object.keys(config)
+        for (let k of keys) {
+            let item = config[k]
+            let html = templateControl(k, item)
+            div.insertAdjacentHTML('beforeend', html)
+        }
+    }
+
+    let bindEvents = function() {
+        bindAll('.gua-auto-slider', 'input', function (event) {
+            let target = event.target
+            let bindlet = target.dataset.value
+            let v = target.value
+            eval(bindlet + '.value =' + v)
+            log(v, bindlet)
+            let label = target.closest('label').querySelector('.gua-label')
+            label.innerText = v
+        })
+    }
+
+    let _main = function(){
+        // 从配置文件生成 HTML 控件
+        insertControls()
+        // 绑定事件
+        bindEvents()
+    }
+    _main()
+</script>
 </body>
 </html>
