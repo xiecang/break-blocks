@@ -40,12 +40,15 @@ class SceneTitle extends GuaScene {
                     self.enableSelect = false
                 } else if (self.editRect.hasPoint(x, y)) {
                     log('in editRect')
+                    let s = SceneEdit.new(self.game)
+                    self.game.replaceScene(s)
                     self.enableSelect = false
 
                 } else if (self.helpRect.hasPoint(x, y)) {
                     log('in helpRect')
-                    self.enableSelect = false
-                }
+                    let s = SceneHelp.new(self.game)
+                    self.game.replaceScene(s)
+                    self.enableSelect = false                }
             }
         })
     }
