@@ -143,4 +143,10 @@ class Scene extends GuaScene {
         }
     }
 
+    deleteBlock(block) {
+        let index = this.blocks.indexOf(block)
+        this.blocks.splice(index, 1)
+        this.deleteElement(block)
+    }
+
 }

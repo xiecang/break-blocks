@@ -16,7 +16,7 @@ class Block extends GuaImage {
         if (o.lives < 1) {
             o.alive = false
         }
-        this.scene.deleteElement(this)
+        this.scene.deleteBlock(this)
     }
 
     collide = function (ball) {

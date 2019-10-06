@@ -7,8 +7,9 @@ class Ball extends GuaImage {
     setup() {
         let o = this
 
-        o.speedX = 5
-        o.speedY = 5
+        this.speedX = config.ballSpeedX.value || BALL.speedX
+        this.speedY = config.ballSpeedY.value || BALL.speedY
+
         o.fired = false
     }
 
@@ -18,6 +19,11 @@ class Ball extends GuaImage {
 
     move() {
         let o = this
+
+        if (this.game.scene.debugModelEnable) {
+            this.speedX = config.ballSpeedX.value * (this.speedX / Math.abs(this.speedX))
+            this.speedY = config.ballSpeedY.value * (this.speedY / Math.abs(this.speedY))
+        }
 
         // 发射状态
         if (o.fired) {
@@ -38,5 +44,4 @@ class Ball extends GuaImage {
         // log('反弹了')
         this.speedY *= -1
     }
-
 }
