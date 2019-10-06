@@ -1,13 +1,16 @@
 class Block extends GuaImage {
     constructor(game, position) {
-        super(game, 'block');
         // position 是 [0, 0] 格式
         let p = position
+        let lives = p[2] || 1  // 生命
+
+        let name = 'block' + (lives - 1)
+        super(game, name);
+
         this.x = p[0]
         this.y = p[1]
         this.alive = true
-
-        this.lives = p[2] || 1  // 生命
+        this.lives = lives
     }
 
     kill() {
@@ -15,8 +18,8 @@ class Block extends GuaImage {
         o.lives--
         if (o.lives < 1) {
             o.alive = false
+            this.game.scene.deleteBlock(this)
         }
-        this.scene.deleteBlock(this)
     }
 
     collide = function (ball) {

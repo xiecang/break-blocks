@@ -6,6 +6,7 @@ let loadLevel = function (game, n) {
         let p = level[i]
         let b = Block.new(game, p)
         blocks.push(b)
+        game.scene.addElement(b)
     }
     return blocks
 }
@@ -23,7 +24,7 @@ let enableDebugMode = function (game, enable) {
             window.paused = !window.paused
         } else if ('1234567'.includes(k)) {
             // 载入关卡功能
-            game.scene.blocks = loadLevel(game, Number(k))
+            game.scene.blocks = game.scene.level.loadLevel(Number(k))
         } else if (k === 'e') {
             game.scene.enableEditLevel = !game.scene.enableEditLevel
         }
@@ -40,7 +41,13 @@ let __main = function () {
         bg: "img/background.jpg",
         paddle: 'img/paddle.png',
         ball: 'img/ball.png',
-        block: 'img/block1.png',
+        block0: 'img/block0.png',
+        block1: 'img/block1.png',
+        block2: 'img/block2.png',
+        block3: 'img/block3.png',
+        block4: 'img/block4.png',
+        block5: 'img/block5.png',
+        block6: 'img/block6.png',
     }
     // GuaGame 载入,并初始化 fps, images
     // 这里有个回调的问题需要加上function, 并将操作放在其中

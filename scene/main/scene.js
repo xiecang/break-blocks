@@ -13,6 +13,9 @@ class Scene extends GuaScene {
         // 初始化
         this.score = 0
 
+        // 关卡载入
+        this.level = Level.new(this.game)
+
         this.bg = GuaImage.new(this.game, 'bg')
         // paddle 载入
         this.paddle = Paddle.new(game)
@@ -28,7 +31,7 @@ class Scene extends GuaScene {
         this.addElement(this.paddle)
         this.addElement(this.ball)
 
-        this.blocks = s.blocks || loadLevel(game, 1)
+        this.blocks = s.blocks || this.level.loadLevel(1)
         this.addBlocks()
 
         // 编辑关卡
@@ -144,9 +147,12 @@ class Scene extends GuaScene {
     }
 
     deleteBlock(block) {
+        log("deleteBlock before", this.blocks, this.elements)
+
         let index = this.blocks.indexOf(block)
         this.blocks.splice(index, 1)
         this.deleteElement(block)
+        log("deleteBlock after", this.blocks, this.elements)
     }
 
 }

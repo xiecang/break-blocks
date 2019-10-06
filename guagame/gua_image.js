@@ -2,7 +2,7 @@ class GuaImage {
     constructor(game, name) {
         this.game = game
         // 图片
-        log("game images", game.images)
+        // log("game images", game.images)
         this.texture = game.textureByName(name)
         // log(this.texture)
         this.x = 0
