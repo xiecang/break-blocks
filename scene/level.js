@@ -14,8 +14,29 @@ class Level {
 
     setup() {
         this.loadLevels()
+        if (this.levels === undefined) {
+            this.resetLevel()
+        }
     }
 
+    resetLevel() {
+        this.levels = {
+            1: [
+                [0, 0,],
+            ],
+            2: [
+                // x, y, lives
+                [0, 0,],
+                [100, 100,],
+            ],
+            3: [
+                [0, 0,],
+                [100, 100, 3],
+                [100, 150, 2],
+            ],
+        }
+        this.saveLevels()
+    }
 
     loadLevels() {
         /*
