@@ -79,9 +79,15 @@ class Level {
         return blocks
     }
 
-    saveLevels() {
-        let ls = JSON.stringify(this.levels)
+    saveLevels(levels) {
+        let l = levels || this.levels
+        let ls = JSON.stringify(l)
         localStorage.levels = ls
+    }
+
+    saveLevel(n, data) {
+        this.levels[n] = data
+        this.saveLevels()
     }
 
 
