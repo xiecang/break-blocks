@@ -74,8 +74,9 @@ class Level {
             let p = level[i]
             let b = Block.new(game, p)
             blocks.push(b)
-            game.scene.addElement(b)
         }
+
+        log(level, blocks, n)
         return blocks
     }
 

@@ -32,7 +32,6 @@ class Scene extends GuaScene {
         this.addElement(this.ball)
 
         this.blocks = s.blocks || this.level.loadLevel(1)
-        this.addBlocks()
 
         // 编辑关卡
         s.enableEditLevel = false
@@ -60,6 +59,8 @@ class Scene extends GuaScene {
     draw() {
         super.draw();
         let game = this.game
+
+        this.drawBlocks()
 
         // draw labels
         game.context.fillStyle = "pink"
@@ -137,11 +138,11 @@ class Scene extends GuaScene {
         })
     }
 
-    addBlocks() {
+    drawBlocks() {
         for (let i = 0; i < this.blocks.length; i++) {
             let block = this.blocks[i]
             if (block.alive) {
-                this.addElement(block)
+                this.game.drawImage(block)
             }
         }
     }
@@ -151,7 +152,6 @@ class Scene extends GuaScene {
 
         let index = this.blocks.indexOf(block)
         this.blocks.splice(index, 1)
-        this.deleteElement(block)
         log("deleteBlock after", this.blocks, this.elements)
     }
 
