@@ -13,6 +13,11 @@ class SceneEdit extends GuaScene {
 
         this.positions = []
 
+        this.initBlocksNumber = 5
+
+        // 当前选中砖块生命
+        this.blockLivies = 2
+
         this.bindEvent()
 
     }
@@ -39,6 +44,17 @@ class SceneEdit extends GuaScene {
             let s = Scene.new(game)
             game.replaceScene(s)
         })
+    }
+
+    drawInitBlocks() {
+        for (let i = 0; i < this.initBlocksNumber; i++) {
+            let x = CANVAS_WIDTH - BLCOK_WIDTH * (i + 1)
+            let y = CANVAS_HEIGHT - BLOCK_HEIGHT
+            let lives = i + 1
+            let position = [x, y, lives]
+            let e = Block.new(this.game, position)
+            e.draw()
+        }
     }
     
     drawGrid(color, stepx, stepy) {
@@ -76,13 +92,20 @@ class SceneEdit extends GuaScene {
         game.canvas.addEventListener('mousedown', function(event) {
             let x = event.offsetX
             let y = event.offsetY
-            // 应该检查 block 是否已存在，再添加
-            let block_x = x - (x % 50)
-            let block_y = y - (y % 20)
-            let position = [block_x, block_y, 2]
-            self.positions.push(position)
-            let block = Block.new(game, position)
-            self.blocks.push(block)
+
+            if (y < CANVAS_HEIGHT - 80) {
+                // 可编辑区域应该在挡板之上
+
+                // 应该检查 block 是否已存在，再添加
+                let block_x = x - (x % BLCOK_WIDTH)
+                let block_y = y - (y % BLOCK_HEIGHT)
+                let position = [block_x, block_y, self.blockLivies]
+                self.positions.push(position)
+                let block = Block.new(game, position)
+                self.blocks.push(block)
+            } else if (y > (CANVAS_HEIGHT - BLOCK_HEIGHT) && (x > CANVAS_WIDTH - self.initBlocksNumber * BLCOK_WIDTH)) {
+                self.blockLivies = Math.ceil((CANVAS_WIDTH - x) / BLCOK_WIDTH)
+            }
         })
     }
 
@@ -97,8 +120,10 @@ class SceneEdit extends GuaScene {
         super.draw()
         this.drawGrid('#ccc', 50, 20)
 
+        this.drawInitBlocks()
+
         this.drawLabel(`第 ${this.levelNumber} 关`, 10, 445, "red", 20)
-        this.drawLabel("从左至右，砖块生命依次递增", 10, 470, "black", 20)
+        this.drawLabel("从右至左，砖块生命1-5", 10, 470, "black", 20)
         this.drawLabel("按Enter完成编辑，按 k 开始新的一关", 10, 495, "black", 20)
 
 

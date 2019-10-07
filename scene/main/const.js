@@ -1,6 +1,9 @@
 CANVAS_WIDTH = 600
 CANVAS_HEIGHT = 500
 
+BLOCK_HEIGHT = 20
+BLCOK_WIDTH = 50
+
 BALL = {
     speedX: 5,
     speedY: 5,
