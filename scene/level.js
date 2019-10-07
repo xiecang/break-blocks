@@ -17,6 +17,9 @@ class Level {
         if (this.levels === undefined) {
             this.resetLevel()
         }
+
+        this.levelNumber = 1
+        this.maxLevel = Object.keys(this.levels).length
     }
 
     resetLevel() {
@@ -80,10 +83,20 @@ class Level {
         return blocks
     }
 
+    loadNextLevel() {
+        this.levelNumber++
+        if (this.levelNumber > this.maxLevel) {
+            return null
+        }
+        let blocks =  this.loadLevel(this.levelNumber)
+        return blocks
+    }
+
     saveLevels(levels) {
         let l = levels || this.levels
         let ls = JSON.stringify(l)
         localStorage.levels = ls
+        this.maxLevel = Object.keys(this.levels).length
     }
 
     saveLevel(n, data) {

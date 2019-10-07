@@ -19,23 +19,19 @@ class Scene extends GuaScene {
         this.bg = GuaImage.new(this.game, 'bg')
         // paddle 载入
         this.paddle = Paddle.new(game)
-        this.paddle.x = 100
-        this.paddle.y = 450
+        this.paddle.x = PADDLE.x
+        this.paddle.y = PADDLE.y
 
         // ball 载入
         this.ball = Ball.new(game)
-        this.ball.x = 100
-        this.ball.y = 200
+        this.ball.x = BALL.x
+        this.ball.y = BALL.y
 
         this.addElement(this.bg)
         this.addElement(this.paddle)
         this.addElement(this.ball)
 
         this.blocks = s.blocks || this.level.loadLevel(1)
-
-        // 编辑关卡
-        s.enableEditLevel = false
-
 
     }
     setupInput() {
@@ -63,8 +59,8 @@ class Scene extends GuaScene {
         this.drawBlocks()
 
         // draw labels
-        game.context.fillStyle = "pink"
-        game.context.fillText('分数: ' + this.score, 10, 490)
+        this.drawLabel('分数: ' + this.score, 10, 490, 'pink')
+        this.drawLabel(`第 ${this.level.levelNumber} 关`, 530, 20, 'pink', 20)
     }
 
     update() {
@@ -82,8 +78,17 @@ class Scene extends GuaScene {
         ball.move()
         // 判断游戏结束，跳转到结束画面
         if (ball.y > paddle.y) {
-            // let end = SceneEnd.new(game)
-            // game.replaceScene(end)
+            let end = SceneEnd.new(game)
+            game.replaceScene(end)
+        }
+        if (this.blocks.length === 0) {
+            let bs = this.level.loadNextLevel()
+            if (bs === null) {
+                let end = SceneEnd.new(game)
+                game.replaceScene(end)
+            } else {
+                this.blocks = bs
+            }
         }
         // ball 和 paddle 碰撞
         if (paddle.collide(ball)) {
@@ -112,13 +117,6 @@ class Scene extends GuaScene {
             if (ball.hasPoint(x, y)) {
                 // 设置拖拽状态
                 enableDrag = true
-            } else {
-                if (!s.enableEditLevel) {
-                    return
-                }
-                // 添加砖块
-                let b = Block(game, [x, y, (Math.random() * (3 - 3) + 1)])
-                s.blocks.push(b)
             }
         })
         game.canvas.addEventListener('mousemove', function (event) {
@@ -148,11 +146,8 @@ class Scene extends GuaScene {
     }
 
     deleteBlock(block) {
-        log("deleteBlock before", this.blocks, this.elements)
-
         let index = this.blocks.indexOf(block)
         this.blocks.splice(index, 1)
-        log("deleteBlock after", this.blocks, this.elements)
     }
 
 }
