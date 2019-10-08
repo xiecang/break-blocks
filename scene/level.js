@@ -48,7 +48,7 @@ class Level {
         */
         let ls = localStorage.levels
         if (ls === undefined) {
-            self.levels = DEFAULT_LEVELS
+            this.levels = DEFAULT_LEVELS
             return
         }
         this.levels = JSON.parse(ls)
