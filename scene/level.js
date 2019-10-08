@@ -24,21 +24,7 @@ class Level {
     }
 
     resetLevel() {
-        this.levels = {
-            1: [
-                [0, 0,],
-            ],
-            2: [
-                // x, y, lives
-                [0, 0,],
-                [100, 100,],
-            ],
-            3: [
-                [0, 0,],
-                [100, 100, 3],
-                [100, 150, 2],
-            ],
-        }
+        this.levels = DEFAULT_LEVELS
         this.saveLevels()
     }
 
@@ -61,6 +47,9 @@ class Level {
         }
         */
         let ls = localStorage.levels
+        if (ls === undefined) {
+            self.levels = DEFAULT_LEVELS
+        }
         this.levels = JSON.parse(ls)
     }
 
