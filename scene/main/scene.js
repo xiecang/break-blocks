@@ -10,9 +10,6 @@ class Scene extends GuaScene {
         let game = this.game
         let s = this
 
-        // 初始化
-        this.score = 0
-
         // 关卡载入
         this.level = Level.new(this.game)
 
@@ -59,7 +56,7 @@ class Scene extends GuaScene {
         this.drawBlocks()
 
         // draw labels
-        this.drawLabel('分数: ' + this.score, 10, 490, 'pink')
+        this.drawLabel('分数: ' + this.level.score, 10, 490, 'pink')
         this.drawLabel(`第 ${this.level.levelNumber} 关`, 530, 20, 'pink', 20)
     }
 
@@ -78,12 +75,14 @@ class Scene extends GuaScene {
         ball.move()
         // 判断游戏结束，跳转到结束画面
         if (ball.y > paddle.y) {
+            this.level.saveScore()
             let end = SceneEnd.new(game)
             game.replaceScene(end)
         }
         if (this.blocks.length === 0) {
             let bs = this.level.loadNextLevel()
             if (bs === null) {
+                this.level.saveScore()
                 let end = SceneEnd.new(game)
                 game.replaceScene(end)
             } else {
@@ -105,7 +104,7 @@ class Scene extends GuaScene {
                 // 反弹函数
                 ball.fjtj()
                 // 更新分数
-                this.score += 100
+                this.level.score += 100
             }
         }
         let enableDrag = false

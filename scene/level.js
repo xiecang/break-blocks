@@ -3,6 +3,8 @@ class Level {
         this.game = game
 
         this.levels = []
+        this.levelNumber = 1
+        this.score = 0
         this.setup()
     }
 
@@ -18,7 +20,6 @@ class Level {
             this.resetLevel()
         }
 
-        this.levelNumber = 1
         this.maxLevel = Object.keys(this.levels).length
     }
 
@@ -86,6 +87,7 @@ class Level {
     loadNextLevel() {
         this.levelNumber++
         if (this.levelNumber > this.maxLevel) {
+            this.saveScore()
             return null
         }
         let blocks =  this.loadLevel(this.levelNumber)
@@ -104,5 +106,13 @@ class Level {
         this.saveLevels()
     }
 
+    saveScore() {
+        localStorage.score = this.score
+    }
+
+    static loadLatestScore() {
+        let s = localStorage.score
+        return s
+    }
 
 }
