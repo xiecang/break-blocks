@@ -22,7 +22,7 @@ class Block extends GuaImage {
         }
     }
 
-    collide = function (ball) {
+    collide(ball) {
         let b = ball
         let o = this
         // 判断相撞，要有两次 o in b， b in o，并且砖块 alive = true
